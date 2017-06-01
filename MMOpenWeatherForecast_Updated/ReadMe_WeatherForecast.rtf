@@ -1,0 +1,92 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset0 Verdana;\f1\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red40\green82\blue135;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww18500\viewh14760\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 README:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 \
+This application gives the real time weather information for the cities.\
+\
+App includes following features:\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 A] FIRST LAUNCH\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 1) When app is launched for the first times, it shows the weather information for 3 static city array \{ Brisbane, Melbourne and Sudney\}. It fetches the data from the web-service.\
+2) The fetched data of the 3 cities is saved in the Core Data. Next when app is launched after sometime, it checks the Core Data first. If records present in the CD, it loads from CD.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 B] ADD CITY USING SEARCH\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 1) You can add any city by searching its name.\
+2) A web service for that particular city name is called. After fetching the response the data is inserted in the Core Data\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 C] CORE DATA Features\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 1) Save/ Insert record\
+2) Update a particular record\
+3) Delete record\
+4) Fetch all records\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 D] BACKGROUND FETCH\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 1) Have set the minimum
+\fs26 \CocoaLigature0 BackgroundFetchInterval to 5 mins for testing purpose\
+2) To test it on the simulator - >\
+    Edit Scheme: Run -> Check \'93Launch due to background fetch event\'94\
+3) Fetched all the records from the CD. If no records present then there will be no background fetch\
+4) If CD returns an array: Call fetchWeather web service for each city in the array.\
+5) When the response is received update the record in CD for a particular city\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 E] USER NOTIFICATIONS\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 1) When background fetch\'92s response for each city is recieved, check the new info with the old info.\
+2) If the weather description is changed and if new weather info\'92s description is changed to Heavy Rain/ Thunderstorm the schedule a UserNotification.\
+3) This UserNotification will have information which tells that this city\'92s weather has changed.\
+\
+\
+// Guideline Review changes to by Nikhil: \
+1) changed the constant file -> included structs for the constants\
+2) changed the enum having static let to cases\
+3) 
+\fs28 CityTemperatureListTableViewController -> 
+\fs26 Removed the dictionary logic. now loading the data after checking the count of the array. If its three load else wait. For me-> removed updateDataSource method and dictionary and showResponse\
+4) removed type aliases and wrote closures as part of web service call\
+5) Removed all \{ parenthesis. Updated it to as octet for if-else, switch and function definitions\
+6) changed bool names\
+7) control flow changes . for eg : 
+\f1\b\fs22 \cf2 \expnd0\expndtw0\kerning0
+\CocoaLigature1 if 
+\b0 \cf0 view.enabled && !view.hidden \{ \} 
+\fs24 \
+
+\f0\fs26 \kerning1\expnd0\expndtw0 \CocoaLigature0 bad:  
+\f1\b\fs22 \cf2 \expnd0\expndtw0\kerning0
+\CocoaLigature1 if 
+\b0 \cf0 view.enabled == 
+\b \cf2 true 
+\b0 \cf0 && view.hidden == 
+\b \cf2 false 
+\b0 \cf0 \{ \} 
+\fs24 \
+
+\f0\fs26 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\
+\
+ \'97 map : loops over a collection type and carries out the same operation to each element in the collection}
